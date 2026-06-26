@@ -34,6 +34,13 @@ export default function App() {
     })
   }, [clinicians, services, search, filters])
 
+  const activeClinician = useMemo(() => {
+    if (!selectedEntity) return null
+    if (selectedEntity.entityType === 'clinician') return selectedEntity
+    if (selectedEntity.clinicianId) return clinicians.find(c => c.id === selectedEntity.clinicianId) ?? null
+    return null
+  }, [selectedEntity, clinicians])
+
   const setFilter = (key, val) => setFilters(f => ({ ...f, [key]: val }))
   const hasFilters = search || filters.serviceRole || filters.location || filters.status
 
@@ -99,7 +106,7 @@ export default function App() {
           <MapView
             entities={filteredEntities}
             selectedEntity={selectedEntity}
-            activeClinician={selectedEntity?.entityType === 'clinician' ? selectedEntity : null}
+            activeClinician={activeClinician}
             onMarkerClick={setSelectedEntity}
             onInfoClose={() => setSelectedEntity(null)}
           />
