@@ -1,10 +1,3 @@
-/* ── Greyscale map tiles only ────────────────────────────────────────────────── */
-/* Vector maps render tiles into a WebGL <canvas>. AdvancedMarker elements are
-   separate DOM divs and are not canvas elements, so they stay fully colored. */
-.map-container .gm-style canvas {
-  filter: grayscale(1);
-}
-
 /* ── Custom markers ──────────────────────────────────────────────────────────── */
 
 .marker-base {
@@ -18,29 +11,6 @@
 
 .marker-base:hover {
   transform: scale(1.1);
-}
-
-/* ── Active client badge ─────────────────────────────────────────────────────── */
-
-.client-badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: #f59e0b;
-  color: white;
-  font-size: 9px;
-  font-weight: 800;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 3px;
-  border: 1.5px solid white;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-  pointer-events: none;
-  line-height: 1;
 }
 
 /* ── Info window ─────────────────────────────────────────────────────────────── */
