@@ -13,7 +13,7 @@
   gap: 10px;
   padding: 0 16px;
   height: 56px;
-  background: #1e40af;
+  background: #4caf51;
   color: white;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -34,8 +34,8 @@
 /* ── Search ─────────────────────────────────────────────────────────────────── */
 
 .header-search {
-  flex: 1;
-  max-width: 320px;
+  margin-left: auto;
+  width: 280px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -122,7 +122,7 @@
 }
 
 .header-filters select option {
-  background: #1e40af;
+  background: #4caf51;
   color: white;
 }
 

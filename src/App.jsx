@@ -61,23 +61,6 @@ export default function App() {
             <span>CareMap LA</span>
           </div>
 
-          <div className="header-search">
-            <svg className="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-            </svg>
-            <input
-              type="text"
-              placeholder="Search clinicians and services…"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-            {search && (
-              <button className="search-clear" onClick={() => setSearch('')} aria-label="Clear">
-                ×
-              </button>
-            )}
-          </div>
-
           <div className="header-filters">
             <select value={filters.serviceRole} onChange={e => setFilter('serviceRole', e.target.value)}>
               <option value="">All Roles</option>
@@ -97,6 +80,23 @@ export default function App() {
                 onClick={() => { setSearch(''); setFilters({ serviceRole: '', location: '', status: '' }) }}
               >
                 Clear
+              </button>
+            )}
+          </div>
+
+          <div className="header-search">
+            <svg className="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+            <input
+              type="text"
+              placeholder="Search clinicians and services…"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+            {search && (
+              <button className="search-clear" onClick={() => setSearch('')} aria-label="Clear">
+                ×
               </button>
             )}
           </div>

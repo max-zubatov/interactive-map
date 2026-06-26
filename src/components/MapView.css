@@ -1,7 +1,7 @@
-/* ── Greyscale map tiles (not markers) ───────────────────────────────────────── */
-/* Vector maps render tiles in the first div child of .gm-style (a WebGL canvas).
-   AdvancedMarker elements live in later sibling divs and stay fully colored. */
-.map-container .gm-style > div:first-child {
+/* ── Greyscale map tiles only ────────────────────────────────────────────────── */
+/* Vector maps render tiles into a WebGL <canvas>. AdvancedMarker elements are
+   separate DOM divs and are not canvas elements, so they stay fully colored. */
+.map-container .gm-style canvas {
   filter: grayscale(1);
 }
 
