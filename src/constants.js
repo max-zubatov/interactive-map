@@ -22,12 +22,13 @@ export const LOCATIONS = [
   'Westwood / Brentwood',
 ];
 
-export const STATUSES = ['Active', 'Inactive', 'Pending Review'];
+export const STATUSES = ['Unassigned', 'Pending', 'Assigned', 'Terminated'];
 
 export const STATUS_COLORS = {
-  Active: { bg: '#16a34a', border: '#15803d', label: '#dcfce7', dot: '#22c55e' },
-  Inactive: { bg: '#6b7280', border: '#4b5563', label: '#f3f4f6', dot: '#9ca3af' },
-  'Pending Review': { bg: '#d97706', border: '#b45309', label: '#fef3c7', dot: '#f59e0b' },
+  Unassigned:  { bg: '#6b7280', border: '#4b5563', label: '#f3f4f6', dot: '#9ca3af' },
+  Pending:     { bg: '#d97706', border: '#b45309', label: '#fef3c7', dot: '#f59e0b' },
+  Assigned:    { bg: '#16a34a', border: '#15803d', label: '#dcfce7', dot: '#22c55e' },
+  Terminated:  { bg: '#dc2626', border: '#b91c1c', label: '#fee2e2', dot: '#ef4444' },
 };
 
 export const CLINICIAN_COLOR = { bg: '#2563eb', border: '#1d4ed8' };

@@ -258,16 +258,20 @@ function MapLegend() {
       </div>
       <div className="legend-divider" />
       <div className="legend-row">
-        <span className="legend-square" style={{ background: '#16a34a' }} />
-        Active
+        <span className="legend-square" style={{ background: '#6b7280' }} />
+        Unassigned
       </div>
       <div className="legend-row">
         <span className="legend-square" style={{ background: '#d97706' }} />
         Pending
       </div>
       <div className="legend-row">
-        <span className="legend-square" style={{ background: '#6b7280' }} />
-        Inactive
+        <span className="legend-square" style={{ background: '#16a34a' }} />
+        Assigned
+      </div>
+      <div className="legend-row">
+        <span className="legend-square" style={{ background: '#dc2626' }} />
+        Terminated
       </div>
     </div>
   )

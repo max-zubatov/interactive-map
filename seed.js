@@ -37,16 +37,16 @@ const insertService = db.prepare(
 );
 
 const serviceRows = [
-  ['Sunrise Mental Health Center',    '5901 Hollywood Blvd, Hollywood, CA 90028',              'Mental Health Counselor',     'Hollywood',            'Active',         34.1018, -118.3109, clinician('Dr. Sarah Mitchell')],
-  ['Pacific Family Services',         '1630 Olympic Blvd, Santa Monica, CA 90404',             'Marriage & Family Therapist', 'Santa Monica',         'Active',         34.0217, -118.4726, clinician('Dr. Emily Rodriguez')],
-  ['Downtown Community Wellness',     '511 S Hope St, Los Angeles, CA 90071',                  'Social Worker',               'Downtown LA',          'Active',         34.0528, -118.2523, clinician('Dr. James Park')],
-  ['Valley Recovery Center',          '15303 Ventura Blvd, Sherman Oaks, CA 91403',            'Substance Abuse Counselor',   'San Fernando Valley',  'Active',         34.1539, -118.4673, clinician('Dr. David Kim')],
-  ['Eastside Health Collective',      '4121 E Cesar E Chavez Ave, Los Angeles, CA 90063',      'Psychologist',                'East Los Angeles',     'Inactive',       34.0341, -118.1798, clinician('Dr. Aisha Washington')],
-  ['Pasadena Healing Arts',           '33 E Walnut St, Pasadena, CA 91103',                    'Mental Health Counselor',     'Pasadena',             'Active',         34.1477, -118.1510, clinician('Dr. Michael Torres')],
-  ['Beverly Hills Therapy Associates','9595 Wilshire Blvd, Beverly Hills, CA 90210',           'Psychiatrist',                'Beverly Hills',        'Pending Review', 34.0685, -118.4068, clinician('Dr. Jennifer Lee')],
-  ['Culver City Counseling Center',   '9800 Culver Blvd, Culver City, CA 90232',               'Marriage & Family Therapist', 'Culver City',          'Active',         34.0210, -118.3964, clinician('Dr. Jennifer Lee')],
-  ['Westwood Behavioral Health',      '10880 Wilshire Blvd, Los Angeles, CA 90024',            'Psychiatrist',                'Westwood / Brentwood', 'Active',         34.0603, -118.4470, clinician('Dr. David Kim')],
-  ['Long Beach Recovery Services',    '2840 Long Beach Blvd, Long Beach, CA 90806',            'Substance Abuse Counselor',   'Long Beach',           'Pending Review', 33.8034, -118.1871, clinician('Dr. David Kim')],
+  ['Sunrise Mental Health Center',    '5901 Hollywood Blvd, Hollywood, CA 90028',              'Mental Health Counselor',     'Hollywood',            'Assigned',   34.1018, -118.3109, clinician('Dr. Sarah Mitchell')],
+  ['Pacific Family Services',         '1630 Olympic Blvd, Santa Monica, CA 90404',             'Marriage & Family Therapist', 'Santa Monica',         'Assigned',   34.0217, -118.4726, clinician('Dr. Emily Rodriguez')],
+  ['Downtown Community Wellness',     '511 S Hope St, Los Angeles, CA 90071',                  'Social Worker',               'Downtown LA',          'Assigned',   34.0528, -118.2523, clinician('Dr. James Park')],
+  ['Valley Recovery Center',          '15303 Ventura Blvd, Sherman Oaks, CA 91403',            'Substance Abuse Counselor',   'San Fernando Valley',  'Assigned',   34.1539, -118.4673, clinician('Dr. David Kim')],
+  ['Eastside Health Collective',      '4121 E Cesar E Chavez Ave, Los Angeles, CA 90063',      'Psychologist',                'East Los Angeles',     'Terminated', 34.0341, -118.1798, clinician('Dr. Aisha Washington')],
+  ['Pasadena Healing Arts',           '33 E Walnut St, Pasadena, CA 91103',                    'Mental Health Counselor',     'Pasadena',             'Assigned',   34.1477, -118.1510, clinician('Dr. Michael Torres')],
+  ['Beverly Hills Therapy Associates','9595 Wilshire Blvd, Beverly Hills, CA 90210',           'Psychiatrist',                'Beverly Hills',        'Pending',    34.0685, -118.4068, clinician('Dr. Jennifer Lee')],
+  ['Culver City Counseling Center',   '9800 Culver Blvd, Culver City, CA 90232',               'Marriage & Family Therapist', 'Culver City',          'Unassigned', 34.0210, -118.3964, clinician('Dr. Jennifer Lee')],
+  ['Westwood Behavioral Health',      '10880 Wilshire Blvd, Los Angeles, CA 90024',            'Psychiatrist',                'Westwood / Brentwood', 'Assigned',   34.0603, -118.4470, clinician('Dr. David Kim')],
+  ['Long Beach Recovery Services',    '2840 Long Beach Blvd, Long Beach, CA 90806',            'Substance Abuse Counselor',   'Long Beach',           'Pending',    33.8034, -118.1871, clinician('Dr. David Kim')],
 ];
 
 db.transaction(() => serviceRows.forEach(s => insertService.run(...s)))();

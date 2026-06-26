@@ -22,7 +22,7 @@ db.exec(`
     address TEXT NOT NULL,
     serviceRole TEXT NOT NULL,
     location TEXT NOT NULL,
-    status TEXT NOT NULL DEFAULT 'Active',
+    status TEXT NOT NULL DEFAULT 'Unassigned',
     lat REAL NOT NULL,
     lng REAL NOT NULL,
     clinicianId INTEGER REFERENCES clinicians(id),
