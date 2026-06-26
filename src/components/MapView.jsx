@@ -44,13 +44,13 @@ function ClinicianPin({ isSelected }) {
           : '0 2px 6px rgba(0,0,0,0.3)',
       }}
     >
-      {/* Stethoscope: ear tips → arched tubes → stem → chest piece */}
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <circle cx="8"  cy="3.5" r="1.5" fill="white"/>
-        <circle cx="16" cy="3.5" r="1.5" fill="white"/>
-        <path d="M8 5Q8 10 12 10Q16 10 16 5" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none"/>
-        <line x1="12" y1="10" x2="12" y2="17" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-        <circle cx="12" cy="19.5" r="2.5" fill="white"/>
+      {/* Lucide stethoscope */}
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M11 2v2"/>
+        <path d="M5 2v2"/>
+        <path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/>
+        <path d="M8 15a6 6 0 0 0 12 0v-3"/>
+        <circle cx="20" cy="10" r="2"/>
       </svg>
     </div>
   )
@@ -73,13 +73,10 @@ function ServicePin({ status, isSelected }) {
           : '0 2px 6px rgba(0,0,0,0.3)',
       }}
     >
-      {/* Patient in hospital bed: head → body under sheet → mattress → legs */}
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-        <circle cx="18.5" cy="6" r="2.5"/>
-        <path d="M3 11 Q3 9 5 9 H18 Q20 9 20 11 V13 H3 Z"/>
-        <rect x="2" y="14" width="20" height="3" rx="1.5"/>
-        <line x1="5"  y1="17" x2="5"  y2="21" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-        <line x1="19" y1="17" x2="19" y2="21" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+      {/* Lucide user */}
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
       </svg>
     </div>
   )
