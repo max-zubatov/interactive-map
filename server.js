@@ -26,14 +26,14 @@ app.get('/api/clinicians', (req, res) => {
 
 app.post('/api/clinicians', (req, res) => {
   try {
-    const { name, address, serviceRole, location, lat, lng } = req.body;
+    const { name, address, serviceRole, location, lat, lng, activeClients } = req.body;
     if (!name || !address || !serviceRole || !location || lat == null || lng == null) {
       return res.status(400).json({ error: 'Missing required fields: name, address, serviceRole, location, lat, lng' });
     }
     const stmt = db.prepare(
-      'INSERT INTO clinicians (name, address, serviceRole, location, lat, lng) VALUES (?, ?, ?, ?, ?, ?)'
+      'INSERT INTO clinicians (name, address, serviceRole, location, lat, lng, activeClients) VALUES (?, ?, ?, ?, ?, ?, ?)'
     );
-    const result = stmt.run(name, address, serviceRole, location, lat, lng);
+    const result = stmt.run(name, address, serviceRole, location, lat, lng, activeClients ?? null);
     const record = db.prepare('SELECT * FROM clinicians WHERE id = ?').get(result.lastInsertRowid);
     res.status(201).json(record);
   } catch (err) {

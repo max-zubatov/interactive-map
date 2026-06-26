@@ -35,31 +35,36 @@ function isActive(entity, activeClinician) {
   return entity.clinicianId === activeClinician.id
 }
 
-function ClinicianPin({ isSelected, dimmed }) {
+function ClinicianPin({ isSelected, dimmed, activeClients }) {
   const size = isSelected ? 40 : 34
   return (
-    <div
-      className="marker-base"
-      style={{
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        background: CLINICIAN_COLOR.bg,
-        boxShadow: isSelected
-          ? `0 0 0 4px rgba(37,99,235,0.25), 0 3px 10px rgba(0,0,0,0.35)`
-          : '0 2px 6px rgba(0,0,0,0.3)',
-        opacity: dimmed ? 0.25 : 1,
-        filter: dimmed ? 'grayscale(1)' : 'none',
-        transition: 'opacity 0.2s ease, filter 0.2s ease',
-      }}
-    >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M11 2v2"/>
-        <path d="M5 2v2"/>
-        <path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/>
-        <path d="M8 15a6 6 0 0 0 12 0v-3"/>
-        <circle cx="20" cy="10" r="2"/>
-      </svg>
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      <div
+        className="marker-base"
+        style={{
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          background: CLINICIAN_COLOR.bg,
+          boxShadow: isSelected
+            ? `0 0 0 4px rgba(37,99,235,0.25), 0 3px 10px rgba(0,0,0,0.35)`
+            : '0 2px 6px rgba(0,0,0,0.3)',
+          opacity: dimmed ? 0.25 : 1,
+          filter: dimmed ? 'grayscale(1)' : 'none',
+          transition: 'opacity 0.2s ease, filter 0.2s ease',
+        }}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M11 2v2"/>
+          <path d="M5 2v2"/>
+          <path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/>
+          <path d="M8 15a6 6 0 0 0 12 0v-3"/>
+          <circle cx="20" cy="10" r="2"/>
+        </svg>
+      </div>
+      {activeClients != null && !dimmed && (
+        <span className="client-badge">{activeClients}</span>
+      )}
     </div>
   )
 }
@@ -119,7 +124,7 @@ export default function MapView({ entities, selectedEntity, activeClinician, onM
             zIndex={isSelected ? 100 : dimmed ? 0 : 1}
           >
             {entity.entityType === 'clinician'
-              ? <ClinicianPin isSelected={isSelected} dimmed={dimmed} />
+              ? <ClinicianPin isSelected={isSelected} dimmed={dimmed} activeClients={entity.activeClients} />
               : <ServicePin status={entity.status} isSelected={isSelected} dimmed={dimmed} />
             }
           </AdvancedMarker>
@@ -176,6 +181,12 @@ function InfoContent({ entity }) {
           <div className="info-row">
             <span className="info-label">Clinician</span>
             <span>{entity.clinicianName ?? '—'}</span>
+          </div>
+        )}
+        {!isService && entity.activeClients != null && (
+          <div className="info-row">
+            <span className="info-label">Active Clients</span>
+            <span>{entity.activeClients}</span>
           </div>
         )}
       </div>

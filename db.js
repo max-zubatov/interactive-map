@@ -12,6 +12,7 @@ db.exec(`
     location TEXT NOT NULL,
     lat REAL NOT NULL,
     lng REAL NOT NULL,
+    activeClients INTEGER,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
@@ -29,10 +30,14 @@ db.exec(`
   );
 `);
 
-// Migration: add clinicianId to existing DB that lacks the column
-const cols = db.prepare('PRAGMA table_info(services)').all();
-if (!cols.some(c => c.name === 'clinicianId')) {
+// Migrations: add columns to existing DBs that predate them
+const serviceCols = db.prepare('PRAGMA table_info(services)').all();
+if (!serviceCols.some(c => c.name === 'clinicianId')) {
   db.exec('ALTER TABLE services ADD COLUMN clinicianId INTEGER REFERENCES clinicians(id)');
+}
+const clinicianCols = db.prepare('PRAGMA table_info(clinicians)').all();
+if (!clinicianCols.some(c => c.name === 'activeClients')) {
+  db.exec('ALTER TABLE clinicians ADD COLUMN activeClients INTEGER');
 }
 
 module.exports = db;

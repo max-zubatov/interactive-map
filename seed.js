@@ -10,18 +10,19 @@ try {
 // ── Clinicians ────────────────────────────────────────────────────────────────
 
 const insertClinician = db.prepare(
-  'INSERT INTO clinicians (name, address, serviceRole, location, lat, lng) VALUES (?, ?, ?, ?, ?, ?)'
+  'INSERT INTO clinicians (name, address, serviceRole, location, lat, lng, activeClients) VALUES (?, ?, ?, ?, ?, ?, ?)'
 );
 
+// activeClients: number of active clients assigned, or null if not applicable
 const clinicianRows = [
-  ['Dr. Sarah Mitchell', '6255 W Sunset Blvd, Hollywood, CA 90028',         'Mental Health Counselor',      'Hollywood',            34.0978, -118.3219],
-  ['Dr. James Park',     '350 S Grand Ave, Los Angeles, CA 90071',           'Psychiatrist',                 'Downtown LA',          34.0527, -118.2588],
-  ['Dr. Emily Rodriguez','1444 2nd St, Santa Monica, CA 90401',              'Psychologist',                 'Santa Monica',         34.0241, -118.4907],
-  ['Dr. Michael Torres', '800 E Colorado Blvd, Pasadena, CA 91101',          'Social Worker',                'Pasadena',             34.1480, -118.1276],
-  ['Dr. Jennifer Lee',   '9301 Wilshire Blvd, Beverly Hills, CA 90210',      'Marriage & Family Therapist',  'Beverly Hills',        34.0694, -118.3958],
-  ['Dr. David Kim',      '11645 Wilshire Blvd, Los Angeles, CA 90025',       'Substance Abuse Counselor',    'Westwood / Brentwood', 34.0599, -118.4581],
-  ['Dr. Aisha Washington','4545 N Figueroa St, Los Angeles, CA 90065',       'Occupational Therapist',       'East Los Angeles',     34.0820, -118.2006],
-  ['Dr. Robert Chen',    '15250 Ventura Blvd, Sherman Oaks, CA 91403',       'Physical Therapist',           'San Fernando Valley',  34.1530, -118.4681],
+  ['Dr. Sarah Mitchell',  '6255 W Sunset Blvd, Hollywood, CA 90028',         'Mental Health Counselor',     'Hollywood',            34.0978, -118.3219, 8],
+  ['Dr. James Park',      '350 S Grand Ave, Los Angeles, CA 90071',           'Psychiatrist',                'Downtown LA',          34.0527, -118.2588, 12],
+  ['Dr. Emily Rodriguez', '1444 2nd St, Santa Monica, CA 90401',              'Psychologist',                'Santa Monica',         34.0241, -118.4907, 6],
+  ['Dr. Michael Torres',  '800 E Colorado Blvd, Pasadena, CA 91101',          'Social Worker',               'Pasadena',             34.1480, -118.1276, null],
+  ['Dr. Jennifer Lee',    '9301 Wilshire Blvd, Beverly Hills, CA 90210',      'Marriage & Family Therapist', 'Beverly Hills',        34.0694, -118.3958, 9],
+  ['Dr. David Kim',       '11645 Wilshire Blvd, Los Angeles, CA 90025',       'Substance Abuse Counselor',   'Westwood / Brentwood', 34.0599, -118.4581, 11],
+  ['Dr. Aisha Washington','4545 N Figueroa St, Los Angeles, CA 90065',        'Occupational Therapist',      'East Los Angeles',     34.0820, -118.2006, null],
+  ['Dr. Robert Chen',     '15250 Ventura Blvd, Sherman Oaks, CA 91403',       'Physical Therapist',          'San Fernando Valley',  34.1530, -118.4681, 4],
 ];
 
 db.transaction(() => clinicianRows.forEach(c => insertClinician.run(...c)))();
