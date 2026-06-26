@@ -44,8 +44,13 @@ function ClinicianPin({ isSelected }) {
           : '0 2px 6px rgba(0,0,0,0.3)',
       }}
     >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      {/* Stethoscope: ear tips → arched tubes → stem → chest piece */}
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="8"  cy="3.5" r="1.5" fill="white"/>
+        <circle cx="16" cy="3.5" r="1.5" fill="white"/>
+        <path d="M8 5Q8 10 12 10Q16 10 16 5" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none"/>
+        <line x1="12" y1="10" x2="12" y2="17" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="12" cy="19.5" r="2.5" fill="white"/>
       </svg>
     </div>
   )
@@ -68,8 +73,13 @@ function ServicePin({ status, isSelected }) {
           : '0 2px 6px rgba(0,0,0,0.3)',
       }}
     >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+      {/* Patient in hospital bed: head → body under sheet → mattress → legs */}
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+        <circle cx="18.5" cy="6" r="2.5"/>
+        <path d="M3 11 Q3 9 5 9 H18 Q20 9 20 11 V13 H3 Z"/>
+        <rect x="2" y="14" width="20" height="3" rx="1.5"/>
+        <line x1="5"  y1="17" x2="5"  y2="21" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        <line x1="19" y1="17" x2="19" y2="21" stroke="white" strokeWidth="2" strokeLinecap="round"/>
       </svg>
     </div>
   )
