@@ -43,9 +43,15 @@ app.post('/api/clinicians', (req, res) => {
 
 // ── Services ──────────────────────────────────────────────────────────────────
 
+const SERVICE_WITH_CLINICIAN = `
+  SELECT s.*, c.name AS clinicianName
+  FROM services s
+  LEFT JOIN clinicians c ON s.clinicianId = c.id
+`;
+
 app.get('/api/services', (req, res) => {
   try {
-    const services = db.prepare('SELECT * FROM services ORDER BY name').all();
+    const services = db.prepare(`${SERVICE_WITH_CLINICIAN} ORDER BY s.name`).all();
     res.json(services);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -54,15 +60,15 @@ app.get('/api/services', (req, res) => {
 
 app.post('/api/services', (req, res) => {
   try {
-    const { name, address, serviceRole, location, status, lat, lng } = req.body;
+    const { name, address, serviceRole, location, status, lat, lng, clinicianId } = req.body;
     if (!name || !address || !serviceRole || !location || !status || lat == null || lng == null) {
       return res.status(400).json({ error: 'Missing required fields: name, address, serviceRole, location, status, lat, lng' });
     }
     const stmt = db.prepare(
-      'INSERT INTO services (name, address, serviceRole, location, status, lat, lng) VALUES (?, ?, ?, ?, ?, ?, ?)'
+      'INSERT INTO services (name, address, serviceRole, location, status, lat, lng, clinicianId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
     );
-    const result = stmt.run(name, address, serviceRole, location, status, lat, lng);
-    const record = db.prepare('SELECT * FROM services WHERE id = ?').get(result.lastInsertRowid);
+    const result = stmt.run(name, address, serviceRole, location, status, lat, lng, clinicianId ?? null);
+    const record = db.prepare(`${SERVICE_WITH_CLINICIAN} WHERE s.id = ?`).get(result.lastInsertRowid);
     res.status(201).json(record);
   } catch (err) {
     res.status(500).json({ error: err.message });

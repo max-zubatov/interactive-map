@@ -8,9 +8,6 @@ import {
 import { LA_CENTER, STATUS_COLORS, CLINICIAN_COLOR } from '../constants.js'
 import './MapView.css'
 
-// Map ID — DEMO_MAP_ID enables AdvancedMarker (vector rendering).
-// AdvancedMarker and the legacy `styles` array cannot be used together;
-// greyscale is applied via CSS targeting the tile canvas layer instead.
 const MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID || 'DEMO_MAP_ID'
 
 function MapController({ selectedEntity }) {
@@ -28,12 +25,21 @@ function MapController({ selectedEntity }) {
   return null
 }
 
-// Circle marker for clinicians
-function ClinicianPin({ isSelected }) {
+// An entity is "active" (fully colored) when:
+//   - no clinician is focused, OR
+//   - it IS the focused clinician, OR
+//   - it is a service whose clinicianId matches the focused clinician
+function isActive(entity, activeClinician) {
+  if (!activeClinician) return true
+  if (entity.entityType === 'clinician') return entity.id === activeClinician.id
+  return entity.clinicianId === activeClinician.id
+}
+
+function ClinicianPin({ isSelected, dimmed }) {
   const size = isSelected ? 40 : 34
   return (
     <div
-      className="marker-base clinician-marker"
+      className="marker-base"
       style={{
         width: size,
         height: size,
@@ -42,9 +48,11 @@ function ClinicianPin({ isSelected }) {
         boxShadow: isSelected
           ? `0 0 0 4px rgba(37,99,235,0.25), 0 3px 10px rgba(0,0,0,0.35)`
           : '0 2px 6px rgba(0,0,0,0.3)',
+        opacity: dimmed ? 0.25 : 1,
+        filter: dimmed ? 'grayscale(1)' : 'none',
+        transition: 'opacity 0.2s ease, filter 0.2s ease',
       }}
     >
-      {/* Lucide stethoscope */}
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M11 2v2"/>
         <path d="M5 2v2"/>
@@ -56,13 +64,12 @@ function ClinicianPin({ isSelected }) {
   )
 }
 
-// Rounded-square marker for services
-function ServicePin({ status, isSelected }) {
+function ServicePin({ status, isSelected, dimmed }) {
   const color = STATUS_COLORS[status] || STATUS_COLORS['Active']
   const size = isSelected ? 40 : 34
   return (
     <div
-      className="marker-base service-marker"
+      className="marker-base"
       style={{
         width: size,
         height: size,
@@ -71,9 +78,11 @@ function ServicePin({ status, isSelected }) {
         boxShadow: isSelected
           ? `0 0 0 4px ${color.bg}44, 0 3px 10px rgba(0,0,0,0.35)`
           : '0 2px 6px rgba(0,0,0,0.3)',
+        opacity: dimmed ? 0.25 : 1,
+        filter: dimmed ? 'grayscale(1)' : 'none',
+        transition: 'opacity 0.2s ease, filter 0.2s ease',
       }}
     >
-      {/* Lucide user */}
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
         <circle cx="12" cy="7" r="4"/>
@@ -82,7 +91,7 @@ function ServicePin({ status, isSelected }) {
   )
 }
 
-export default function MapView({ entities, selectedEntity, onMarkerClick, onInfoClose }) {
+export default function MapView({ entities, selectedEntity, activeClinician, onMarkerClick, onInfoClose }) {
   return (
     <Map
       style={{ width: '100%', height: '100%' }}
@@ -100,17 +109,18 @@ export default function MapView({ entities, selectedEntity, onMarkerClick, onInf
         const isSelected =
           selectedEntity?.id === entity.id &&
           selectedEntity?.entityType === entity.entityType
+        const dimmed = !isActive(entity, activeClinician)
 
         return (
           <AdvancedMarker
             key={`${entity.entityType}-${entity.id}`}
             position={{ lat: entity.lat, lng: entity.lng }}
             onClick={() => onMarkerClick(entity)}
-            zIndex={isSelected ? 100 : 1}
+            zIndex={isSelected ? 100 : dimmed ? 0 : 1}
           >
             {entity.entityType === 'clinician'
-              ? <ClinicianPin isSelected={isSelected} />
-              : <ServicePin status={entity.status} isSelected={isSelected} />
+              ? <ClinicianPin isSelected={isSelected} dimmed={dimmed} />
+              : <ServicePin status={entity.status} isSelected={isSelected} dimmed={dimmed} />
             }
           </AdvancedMarker>
         )
@@ -162,6 +172,12 @@ function InfoContent({ entity }) {
           <span className="info-label">Location</span>
           <span>{entity.location}</span>
         </div>
+        {isService && (
+          <div className="info-row">
+            <span className="info-label">Clinician</span>
+            <span>{entity.clinicianName ?? '—'}</span>
+          </div>
+        )}
       </div>
     </div>
   )

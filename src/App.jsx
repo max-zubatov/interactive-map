@@ -99,6 +99,7 @@ export default function App() {
           <MapView
             entities={filteredEntities}
             selectedEntity={selectedEntity}
+            activeClinician={selectedEntity?.entityType === 'clinician' ? selectedEntity : null}
             onMarkerClick={setSelectedEntity}
             onInfoClose={() => setSelectedEntity(null)}
           />

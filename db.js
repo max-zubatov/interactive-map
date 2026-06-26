@@ -24,8 +24,15 @@ db.exec(`
     status TEXT NOT NULL DEFAULT 'Active',
     lat REAL NOT NULL,
     lng REAL NOT NULL,
+    clinicianId INTEGER REFERENCES clinicians(id),
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 `);
+
+// Migration: add clinicianId to existing DB that lacks the column
+const cols = db.prepare('PRAGMA table_info(services)').all();
+if (!cols.some(c => c.name === 'clinicianId')) {
+  db.exec('ALTER TABLE services ADD COLUMN clinicianId INTEGER REFERENCES clinicians(id)');
+}
 
 module.exports = db;
