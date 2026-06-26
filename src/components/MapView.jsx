@@ -8,29 +8,10 @@ import {
 import { LA_CENTER, STATUS_COLORS, CLINICIAN_COLOR } from '../constants.js'
 import './MapView.css'
 
-// Greyscale map style — works without a Cloud Console Map ID
-const MONOCHROME_STYLES = [
-  { elementType: 'geometry', stylers: [{ color: '#e8e8e8' }] },
-  { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-  { elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
-  { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f5f5' }] },
-  { featureType: 'administrative', elementType: 'geometry', stylers: [{ color: '#c8c8c8' }] },
-  { featureType: 'administrative.land_parcel', elementType: 'labels.text.fill', stylers: [{ color: '#bdbdbd' }] },
-  { featureType: 'poi', elementType: 'geometry', stylers: [{ color: '#e0e0e0' }] },
-  { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
-  { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#d8d8d8' }] },
-  { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
-  { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
-  { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#d8d8d8' }] },
-  { featureType: 'road.arterial', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
-  { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#d4d4d4' }] },
-  { featureType: 'road.highway', elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
-  { featureType: 'road.local', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
-  { featureType: 'transit.line', elementType: 'geometry', stylers: [{ color: '#e0e0e0' }] },
-  { featureType: 'transit.station', elementType: 'geometry', stylers: [{ color: '#e8e8e8' }] },
-  { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c4c4c4' }] },
-  { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
-]
+// Map ID — DEMO_MAP_ID enables AdvancedMarker (vector rendering).
+// AdvancedMarker and the legacy `styles` array cannot be used together;
+// greyscale is applied via CSS targeting the tile canvas layer instead.
+const MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID || 'DEMO_MAP_ID'
 
 function MapController({ selectedEntity }) {
   const map = useMap()
@@ -100,7 +81,7 @@ export default function MapView({ entities, selectedEntity, onMarkerClick, onInf
       style={{ width: '100%', height: '100%' }}
       defaultCenter={LA_CENTER}
       defaultZoom={11}
-      styles={MONOCHROME_STYLES}
+      mapId={MAP_ID}
       gestureHandling="greedy"
       disableDefaultUI={true}
       zoomControl={true}
