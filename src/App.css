@@ -5,11 +5,13 @@
   overflow: hidden;
 }
 
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+
 .app-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
+  gap: 10px;
+  padding: 0 16px;
   height: 56px;
   background: #1e40af;
   color: white;
@@ -21,50 +23,152 @@
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: -0.3px;
+  white-space: nowrap;
+  margin-right: 4px;
 }
 
-.header-tabs {
-  display: flex;
-  gap: 4px;
-}
+/* ── Search ─────────────────────────────────────────────────────────────────── */
 
-.tab-btn {
-  padding: 6px 16px;
-  border: none;
-  border-radius: 20px;
-  background: transparent;
-  color: rgba(255,255,255,0.75);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: inherit;
-}
-
-.tab-btn:hover {
-  background: rgba(255,255,255,0.15);
-  color: white;
-}
-
-.tab-btn.active {
-  background: rgba(255,255,255,0.2);
-  color: white;
-}
-
-.app-body {
-  display: flex;
+.header-search {
   flex: 1;
-  overflow: hidden;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 0 10px;
+  height: 36px;
+  transition: background 0.15s;
 }
+
+.header-search:focus-within {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.search-icon {
+  color: rgba(255,255,255,0.7);
+  flex-shrink: 0;
+}
+
+.header-search input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: white;
+  min-width: 0;
+}
+
+.header-search input::placeholder {
+  color: rgba(255,255,255,0.55);
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+}
+
+.search-clear:hover {
+  color: white;
+}
+
+/* ── Filters ────────────────────────────────────────────────────────────────── */
+
+.header-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-filters select {
+  height: 32px;
+  padding: 0 24px 0 10px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  font-family: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='rgba(255,255,255,0.7)' d='M5 7L0.5 2.5h9z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: background 0.15s;
+  white-space: nowrap;
+  min-width: 110px;
+}
+
+.header-filters select:focus {
+  border-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.2);
+}
+
+.header-filters select option {
+  background: #1e40af;
+  color: white;
+}
+
+.clear-btn {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.9);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.clear-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ── Result count ───────────────────────────────────────────────────────────── */
+
+.header-count {
+  margin-left: auto;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.header-count span {
+  font-weight: 700;
+  color: white;
+  font-size: 14px;
+}
+
+/* ── Map ────────────────────────────────────────────────────────────────────── */
 
 .map-container {
   flex: 1;
   position: relative;
+  overflow: hidden;
 }
+
+/* ── No key ─────────────────────────────────────────────────────────────────── */
 
 .no-key {
   display: flex;
